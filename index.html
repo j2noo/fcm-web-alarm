@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker
+            .register("firebase-messaging-sw.js")
+            .then(function (registration) {
+              console.log(
+                "Service Worker가 scope에 등록되었습니다.:",
+                registration.scope
+              );
+            })
+            .catch(function (err) {
+              console.log("Service Worker 등록 실패:", err);
+            });
+        });
+      } else {
+        // 서비스 워커 등록 실패 시, fallback 이미지 등장
+        // 서비스 워커 등록 실패 시, fallback 이미지 등장
+        // 서비스 워커 등록 실패 시, fallback 이미지 등장
+        console.log("비스 워커 등록 실패 시, fallback 이미지 등장")
+      }
+    </script>
+  </body>
+</html>
