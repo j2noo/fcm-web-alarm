@@ -1,7 +1,7 @@
 // src/service/notificationPermission.js
 import { getToken, getMessaging, isSupported } from "firebase/messaging";
 import { initializeApp } from "firebase/app";
-import { registerServiceWorker } from "./registerServiecWorker";
+// import { registerServiceWorker } from "./registerServiecWorker";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBX7GSmqE7Q77TIhjLWqYa4pfL2bfCIBdk",
@@ -27,7 +27,7 @@ isSupported().then((supported) => {
 });
 
 export async function handleAllowNotification() {
-  registerServiceWorker(); // 나중에 설명
+  // registerServiceWorker(); // 나중에 설명s
   try {
     const permission = await Notification.requestPermission();
 

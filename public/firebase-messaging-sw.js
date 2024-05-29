@@ -11,7 +11,7 @@ self.addEventListener("install", function (e) {
 });
 
 self.addEventListener("activate", function (e) {
-  console.log("fcm service worker가 실행되었습니다.");
+  console.log("fcm service worker가 실행되었습니다. with actitve");
 });
 
 const firebaseConfig = {
@@ -28,24 +28,42 @@ firebase.initializeApp(firebaseConfig);
 
 const messaging = firebase.messaging();
 
-messaging.onBackgroundMessage((payload) => {
-  console.log("백그라운드알림");
-  const notificationTitle = payload.title;
+const LOGO_URL =
+  "https://elecprediction.s3.ap-northeast-2.amazonaws.com/capslogo.png";
+
+self.addEventListener("push", function (e) {
+  console.log("push event 발생");
+  if (!e.data.json()) return;
+
+  const resultData = e.data.json().notification;
+  const notificationTitle = resultData.title;
   const notificationOptions = {
-    body: payload.body,
-    // icon: payload.icon
+    body: resultData.body,
+    icon: LOGO_URL,
+    tag: resultData.tag,
   };
+
   self.registration.showNotification(notificationTitle, notificationOptions);
 });
 
-messaging.onMessage(messaging, (payload) => {
-  console.log("포그라운드알림 도착 ", payload);
-  const notificationTitle = payload.notification.title;
-  const notificationOptions = {
-      body: payload.notification.body
-  };
+// messaging.onBackgroundMessage((payload) => {
+//   console.log("백그라운드알림1");
+//   const notificationTitle = payload.title;
+//   const notificationOptions = {
+//     body: payload.body,
+//     icon: LOGO_URL,
+//   };
+//   self.registration.showNotification(notificationTitle, notificationOptions);
+// });
 
-  if (Notification.permission === "granted") {
-      new Notification(notificationTitle, notificationOptions);
-  }
-});
+// messaging.onMessage(messaging, (payload) => {
+//   console.log("포그라운드알림 도1 ", payload);
+//   const notificationTitle = payload.notification.title;
+//   const notificationOptions = {
+//     body: payload.notification.body,
+//   };
+
+//   if (Notification.permission === "granted") {
+//     new Notification(notificationTitle, notificationOptions);
+//   }
+// });

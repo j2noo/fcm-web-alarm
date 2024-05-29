@@ -73,7 +73,7 @@ export function registerServiceWorker() {
         .register("/firebase-messaging-sw.js")
         .then(function (registration) {
           console.log(
-            "Service Worker가 scope에 등록되었습니다.:",
+            "Service Worker가 scope에 등록되었습니다.22:",
             registration.scope
           );
         })
